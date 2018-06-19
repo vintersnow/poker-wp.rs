@@ -1,0 +1,6 @@
+[package]
+name = "poker-wp"
+version = "0.1.0"
+authors = ["vinter <ankasandora@gmail.com>"]
+
+[dependencies]
