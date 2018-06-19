@@ -17,16 +17,9 @@ const NUMS: [u16; 14] = [
     0b10000000000001, // A = 1 or 14
 ];
 
-const SUITS: [u8; 4] = [
-    0b0001,
-    0b0010,
-    0b0100,
-    0b1000,
-];
-
 const STRAIGHT: u16 = 0b11111000000001;
 
-fn winning_percentage(hands: &mut [u8; 5]) -> u32 {
+fn hand_score(hands: &mut [u8; 5]) -> u32 {
     hands.sort();
 
     let mut hand_nums = 0;
@@ -50,7 +43,7 @@ fn winning_percentage(hands: &mut [u8; 5]) -> u32 {
             pre = num;
         }
 
-        hand_suit |= SUITS[suit as usize];
+        hand_suit |= 0b0001 << suit;
         hand_nums |= NUMS[num as usize];
     }
     let is_straight = (0..9).fold(false, |r, s| r || (STRAIGHT >> s) ^ hand_nums == 0);
@@ -121,23 +114,23 @@ fn winning_percentage(hands: &mut [u8; 5]) -> u32 {
 fn main() {
     // // STRAIGHT
     // let mut hands = [0,1,2,3,4];
-    // winning_percentage(&mut hands);
+    // hand_score(&mut hands);
     // let mut hands = [13,9,10,11,12];
-    // winning_percentage(&mut hands);
+    // hand_score(&mut hands);
     //
     // // FLUSH
     // let mut hands = [4,8,12,20,52];
-    // winning_percentage(&mut hands);
+    // hand_score(&mut hands);
     //
     // // FOUR OF A KIND
     // let mut hands = [4,5,6,7,15];
-    // winning_percentage(&mut hands);
+    // hand_score(&mut hands);
     //
     // FULL HOUSE
     // let mut hands = [4,5,6,20,21];
-    // winning_percentage(&mut hands);
+    // hand_score(&mut hands);
 
     // TWO PAIR
     let mut hands = [4,5,20,21,50];
-    winning_percentage(&mut hands);
+    hand_score(&mut hands);
 }
